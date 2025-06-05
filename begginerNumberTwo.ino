@@ -7,7 +7,7 @@ void loop() {
 
 int pushed = digitalRead(2);
 if(pushed == LOW){
-  digitalWrite(10,LOW);
+  digitalWrite(10,LOW); // turns LED off
 }else{
 digitalWrite(10, HIGH);
 }

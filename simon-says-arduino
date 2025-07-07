@@ -1,0 +1,93 @@
+int pattern[6];
+int pattern_final[6];
+
+void setup()
+{
+Serial.begin(9600);
+Serial.println("Starting Game...");
+pinMode(3, INPUT_PULLUP);
+pinMode(4, INPUT_PULLUP);
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+pinMode(7, OUTPUT);
+pinMode(8, OUTPUT);
+
+
+randomSeed(analogRead(A0));
+delay(50);
+for (int i = 0; i < 6; i++)
+{
+ pattern[i] = random(0, 2);
+}
+
+
+for (int i = 0; i < 6; i++)
+{
+ if (pattern[i] == 0)
+ {
+   digitalWrite(6, HIGH); // LED 1
+   delay(500);
+   digitalWrite(6, LOW);
+ }
+ else
+ {
+   digitalWrite(5, HIGH); // LED 2
+   delay(500);
+   digitalWrite(5, LOW);
+ }
+delay(1000);
+}
+
+
+int inputIndex = 0;
+while(inputIndex < 6){
+   if (digitalRead(3) == LOW) {
+    pattern_final[inputIndex] = 1;      
+    inputIndex++;                       
+    while (digitalRead(3) == LOW);      
+    delay(100);                         
+  }
+  else if (digitalRead(4) == LOW) {     
+    pattern_final[inputIndex] = 0;      
+    inputIndex++;
+    while (digitalRead(4) == LOW);
+    delay(100);
+  }
+}
+
+
+Serial.print("Pattern: ");
+for (int i = 0; i < 6; i++) Serial.print(pattern[i]);
+Serial.println();
+
+Serial.print("User: ");
+for (int i = 0; i < 6; i++) Serial.print(pattern_final[i]);
+Serial.println();
+
+
+delay(3000);
+
+bool isCorrect = true;
+for(int i = 0; i < 6; i++) 
+{
+  if (pattern[i] != pattern_final[i]) {
+    isCorrect = false;
+    break;
+  }
+}
+
+if (isCorrect==true){
+  digitalWrite(7, HIGH);
+  delay(3000);
+  digitalWrite(7, LOW);
+}
+else{
+  digitalWrite(8, HIGH);
+  delay(3000);
+  digitalWrite(8, LOW);
+}
+}
+
+void loop() {
+
+}

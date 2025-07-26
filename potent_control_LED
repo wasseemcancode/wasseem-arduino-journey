@@ -1,0 +1,17 @@
+int potent = A0;
+int led1 = 3;
+int val = 0;
+float num = 4.011764706;
+
+void setup() 
+{
+
+  pinMode(3, OUTPUT);
+
+}
+
+void loop() 
+{
+  int sensorValue = analogRead(A0);
+  analogWrite(led1, (sensorValue / num) );
+}
